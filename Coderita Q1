@@ -1,0 +1,81 @@
+//Sahil is in the mood to attend Geeks Classes.He reaches venue of Geeks Classess.Now, he is confused about his sitting place.There are two columns of students sitting in the classes. Each student has been assigned a score on the basis of their score in Geeks Class Entrance Contest. Now, he wants to sit in the row which contains students with maximum score. Help him in finding the desired column.
+
+//Input : First line of Input contains testcase "T". For each testcase "T", there will be 3 lines of input, first line contains lengths of the columns, and next two lines contains the scores of students sitting in that column.
+
+//Output : For each testcase, Output the column in which Sahil should sit.
+
+//Constraints :
+//1 <= T <= 100
+//1 <= N1, N2 <= 10000
+//1 <= score <= 1000000
+
+//Example :
+//Input :
+//2
+//5 6
+//8 4 5 6 7
+//2 3 4 5 6 7
+//3 5
+//100 29 37
+//100 200 300 400 500
+//Output :
+//C1
+//C2
+//Explanation :
+//TestCase 1 : In 1st column sum of score of students is 30 which is more than 2nd column (score = 27).
+
+//TestCase 2 : In 2nd column sum of score of students is 1500 which is more than 1st column(score = 166).
+
+namespace practice
+{
+    class Program
+    {
+        static public int Main()
+        {
+            string t = Console.ReadLine();
+            int T = int.Parse(t);
+            string colsize = "";
+            if (T < 1 || T > 100) return 0;
+            while(T>=1 && T<=100)
+            { 
+                //to do - reinitialise all vars
+                colsize = Console.ReadLine();
+                colsize = (colsize.TrimEnd()).TrimStart();
+                if (string.IsNullOrEmpty(colsize) || string.IsNullOrWhiteSpace(colsize)) return 0;
+                string[] collengths = colsize.Split(' ');               
+                int[] arr = Array.ConvertAll(collengths, int.Parse);
+                int N1 = arr[0]; //size of col1
+                int N2 = arr[1]; //size of col2
+                if (N1 < 1 || N2 > 10000) return 0;
+                string col1 = Console.ReadLine();
+                string col2 = Console.ReadLine();
+                col1 = (col1.TrimEnd()).TrimStart();
+                col2 = (col2.TrimEnd()).TrimStart();
+                if (string.IsNullOrEmpty(col1) || string.IsNullOrWhiteSpace(col1)) return 0;
+                if(string.IsNullOrEmpty(col2) || string.IsNullOrWhiteSpace(col2)) return 0;
+                string[] col1split = col1.Split(' ');
+                string[] col2split = col2.Split(' ');
+                int[] c1 = Array.ConvertAll(col1split, int.Parse); //reads scores of col1
+                int[] c2 = Array.ConvertAll(col2split, int.Parse);//reads scores of col2
+                foreach(var v in c1)
+                {
+                    if (v > 1000000) return 0;
+                }
+                foreach (var v in c2)
+                {
+                    if (v > 1000000) return 0;
+                }
+                int sum1 = c1.Sum();
+                int sum2 = c2.Sum();
+
+                if (sum1 > sum2)
+                    Console.WriteLine("C1");
+                else
+                    Console.WriteLine("C2");
+
+                T--;
+            } //End-While 
+            return 0;
+        }
+    }
+}
