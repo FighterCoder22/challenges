@@ -1,0 +1,72 @@
+//Sahil is done with his internship and now it's time to attend Geeks Classes to enhance knowledge of Data Structures. However, to join this class, he has been given a task to complete. The task is to count the occurrences of "gfg" in the given string, and if he completes this task, he qualifies for Geeks Classes. But, Sahil is facing some problem in solving this task, so help him.
+
+//Input :
+//First line of input contains "T" testcases.Next "T" lines contains Strings with lowercase characters.
+
+//Output :
+//For each testcase, output the count the ccurrences of "gfg"(continuous) present in string.
+
+
+//Constraints :
+//1 <= T <= 10
+//1<= length_of_string <= 100
+
+
+//Example :
+//Input :
+//2
+//geefgfgksforgfgeeks
+//dsajslsdlsfgf
+//Output :
+//2
+//-1
+using System;
+
+namespace practice
+{
+    class Program
+    {
+        static public void Main()
+        {
+            string l = Console.ReadLine();
+            l = (l.TrimEnd()).TrimStart();
+            int T = int.Parse(l);
+            if (T < 1 || T > 100) return;
+
+            string s1 = string.Empty;
+            string temp = string.Empty;
+            int count = 0;
+            int index = 0;
+            while (T >= 1 && T <= 100)
+            {
+                s1 = string.Empty;
+                temp = string.Empty;
+                s1 = Console.ReadLine();
+                s1 = (s1.ToLower().TrimEnd()).TrimStart();
+                if (string.IsNullOrEmpty(s1) || string.IsNullOrWhiteSpace(s1)) return;
+                if (s1.Length > 100 || s1.Length < 1) return;
+                count = 0;
+                index = 0;
+                while (s1.Contains("gfg") && s1.Length > 0)
+                {
+                    count = count + 1;
+                    index = s1.IndexOf("gfg");
+                    temp = s1;
+                    if (temp.Substring(index + 1, 2).Equals("fg"))
+                        s1 = s1.Substring(index + 1);
+                    else
+                        s1 = s1.Substring(index + 3);
+                }
+                //count = count.ToString();
+                if (count == 0)
+                    Console.WriteLine(-1);
+                else
+                    Console.WriteLine(count);
+                T--;
+            }
+        }
+    }
+}
+
+
+    
