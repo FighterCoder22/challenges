@@ -1,0 +1,85 @@
+//Given an unsorted array arr[] of size N, rotate it by D elements(clockwise). 
+
+//Input:
+//The first line of the input contains T denoting the number of testcases.First line of each test case contains two space separated elements, N denoting the size of the array and an integer D denoting the number size of the rotation.Subsequent line will be the N space separated array elements.
+
+//Output:
+//For each testcase, in a new line, output the rotated array.
+
+//Constraints:
+//1 <= T <= 200
+//1 <= N <= 107
+//1 <= D <= N
+//0 <= arr[i] <= 105
+
+//Example:
+//Input:
+//2
+//5 2
+//1 2 3 4 5 
+//10 3
+//2 4 6 8 10 12 14 16 18 20
+
+//Output:
+//3 4 5 1 2
+//8 10 12 14 16 18 20 2 4 6
+
+//Explanation :
+//Testcase 1: 1 2 3 4 5  when rotated by 2 elements, it becomes 3 4 5 1 2.
+
+using System;
+
+namespace Practice2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string t = Console.ReadLine();
+            int T = int.Parse(t.TrimEnd().TrimStart());
+            if (T > 200 || T < 1) return;
+            //logic for each testcase T
+
+            for (int i = 0; i < T; i++)
+            {
+                string s = Console.ReadLine();
+                string[] str = s.TrimEnd().TrimStart().Split(' ');
+                long[] l = Array.ConvertAll(str, x => long.Parse(x));
+                long N = l[0];
+                long D = l[1];
+
+                if (N > Math.Pow(10, 7) || N < 1) return;
+                if (D < 1 || D > N) return;
+                string inArr = Console.ReadLine();
+                string[] strArr = inArr.TrimEnd().TrimStart().Split(' ');
+                long[] arr = Array.ConvertAll(strArr, x => long.Parse(x));
+                foreach (var v in arr)
+                {
+                    if (v < 0 || v > Math.Pow(10, 5)) return;
+                }
+                long temp = 0;
+                for (int k = 0; k < D; k++)
+                {
+                    for (int j = 0; j < N; j++)
+                    {
+                        if (j == 0)
+                            temp = arr[0];
+                        if (j != 0)
+                        {
+                            arr[j - 1] = arr[j];
+                        }
+                        if (j == N - 1)
+                        {
+                            arr[j] = temp;
+                        }
+                    }
+                }
+                //Here - Output for each T
+                for (int index = 0; index < N; index++)
+                {
+                    Console.WriteLine(arr[index]);
+                }
+            } //T ends
+        }
+    }
+}
