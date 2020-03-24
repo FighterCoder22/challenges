@@ -1,0 +1,64 @@
+//Given an array of even size, task is to find minimum value that can be added to an element so that array become balanced.An array is balanced if the sum of the left half of the array elements is equal to the sum of right half.
+
+//Input:
+//The first line of input contains an integer T denoting the number of test cases.Each test case contains the number of elements in the array a[] as n and next line contains space separated n elements in the array a[].
+
+//Output:
+//Print an integer which is the required answer.
+
+//Constraints:
+//1<=T<=20
+//2<=n<=10000
+//1<=a[i]<=100000
+
+//Example:
+//Input:
+//2
+//6
+//1 2 1 2 1 3
+//2
+//20 10
+
+//Output:
+//2
+//10
+
+using System;
+using System.Linq;
+
+namespace Practice2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string t = Console.ReadLine();
+            int T = int.Parse(t.TrimEnd().TrimStart());
+            if (T < 1 || T > 20) return;
+            //logic for each testcase T
+            for (int i = 0; i < T; i++)
+            {
+                int n = int.Parse((Console.ReadLine().TrimEnd().TrimStart()));
+                string[] s = Console.ReadLine().TrimEnd().TrimStart().Split(' ');
+                int[] arr = Array.ConvertAll(s, x => int.Parse(x));
+                if (n < 2 || n > 10000) return;
+                foreach (int v in arr)
+                {
+                    if (v > 100000) return;
+                }
+                //Logic
+                int lIndex = (n - 1) / 2;
+                int lSum = 0;
+                for (int j = 0; j <= lIndex; j++)
+                {
+                    lSum = lSum + arr[j];
+                }
+                int rSum = arr.Sum() - lSum;
+                int num = lSum > rSum ? (lSum - rSum) : (rSum - lSum);
+                //int rIndex = lIndex + 1;
+                //Output for each T :
+                Console.WriteLine(num);
+            } //T ends
+        }
+    }
+}
