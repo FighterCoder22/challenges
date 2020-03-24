@@ -45,11 +45,9 @@ namespace Practice2
     {
         public int FindKthSmallest(int N, int K, int[] arr1)
         {
-            // arr1.Sort();
             Array.Sort(arr1);
-            return arr1[K - 1]; //arr.ElementAt(K - 1);
+            return arr1[K - 1];
         }
-
     }
     public class GFG
     {
@@ -88,10 +86,6 @@ namespace Practice2
                 if (K < 1 || K > N) return;
                 if (N >= 1 && N <= (Math.Pow(10, 5)) && K <= N && K >= 1)
                 {
-                    //foreach (var v in strarray)
-                    //{
-                    //    arr.Add(Convert.ToInt32(v));
-                    //}
                     //function to find the kth smallest element
                     opval = mytask.FindKthSmallest(N, K, arr1);
                     Console.WriteLine(opval);//Output
@@ -99,7 +93,6 @@ namespace Practice2
                 }
             }
             return;
-            //Console.WriteLine("Hello World!");
         }
     }
 }
