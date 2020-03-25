@@ -1,0 +1,63 @@
+//Create a function that returns the simplified version of a fraction.
+
+//Examples
+//Simplify("4/6") ➞ "2/3"
+
+//Simplify("10/11") ➞ "10/11"
+
+//Simplify("100/400") ➞ "1/4"
+
+//Simplify("8/4") ➞ "2"
+
+using System;
+
+namespace Practice2
+{
+    public class tasks
+    {
+        private int FindGCD(int a , int b)
+        {
+            int num = 2;
+            int bigger = a > b ? a : b;
+            int gcd = 1;
+            while(num <= bigger)
+            {
+                if(a%num==0 && b%num==0)
+                {
+                    gcd = num;
+                }
+                num++;
+            }
+            return gcd;
+        }
+        public string mysteryFunc(string s)
+        {
+            string[] strArr = s.TrimEnd().TrimStart().Split('/');
+            int[] n = Array.ConvertAll(strArr, x => int.Parse(x));
+            //n[0] and n[1] are the two integers
+            //Console.WriteLine(FindGCD(4,2));
+            int gcd = FindGCD(n[0], n[1]);
+            int smaller = n[0] < n[1] ? n[0] : n[1];
+            int bigger = n[0] > n[1] ? n[0] : n[1];
+            if (n[0] == bigger)
+            {
+                if (bigger % smaller == 0)
+                    return (bigger / smaller).ToString();
+            }
+            else if (bigger == smaller) return 1.ToString();
+            else
+            {
+                return (n[0] / gcd).ToString() + "/" + (n[1] / gcd).ToString();
+            }
+            return "Error";
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            tasks myTasks = new tasks();
+            Console.WriteLine(myTasks.mysteryFunc("10/11"));            
+        }
+    }
+}
