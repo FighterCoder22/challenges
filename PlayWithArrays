@@ -1,0 +1,81 @@
+//Given an unsorted array arr of size N, rearrange the elements of array such that number at the odd index is greater than the number at the previous even index.The task is to complete the function formatArray() which will return formatted array.
+
+//Input:
+//The first line of input contains T, denoting the number of testcases.First line of every test case consists of N, denoting number of elements in an array. Second line of every testcase consists of elements in an array separated by space.
+
+//Output:
+//If the array formed is according to rules print 1, else 0.
+
+//Constraints:
+//1 <= T <= 100
+//1 <= N <= 100
+//1 <= arr[i] <= 100
+
+//Example:
+//Input:
+//2
+//5
+//5 4 3 2 1
+//4
+//4 3 2 1
+//Output:
+//1
+//1
+
+//Explanation:
+//Testcase 1: The given array after modification will be as such: 4 5 2 3 1.
+using System;
+
+namespace Practice2
+{
+    class Program
+    {
+        internal static void swap(ref int a, ref int b)
+        {
+            int temp = 0;
+            temp = a;
+            a = b;
+            b = temp;
+        }
+
+        static void Main(string[] args)
+        {
+
+            string t = Console.ReadLine();
+            int T = int.Parse(t.TrimEnd().TrimStart());
+            if (T < 1 || T > 100) return;
+            //logic for each testcase T
+
+            for (int i = 0; i < T; i++)
+            {
+                int N = int.Parse(Console.ReadLine().TrimEnd().TrimStart());
+                if (N < 1 || N > 100) return;
+                string s = Console.ReadLine().TrimEnd().TrimStart();
+                string[] str = s.Split();
+                int[] arr = Array.ConvertAll(str, x => int.Parse(x));
+                foreach (var v in arr)
+                {
+                    if (v > 100 || v < 1) return;
+                }
+                for (int ind = 1; ind < N; ind = ind + 2)
+                {
+                    if (arr[ind] < arr[ind - 1])
+                    { swap(ref arr[ind], ref arr[ind - 1]); }
+                }
+                bool op = true;
+                for (int index = 1; index < N; index = index + 2)
+                {
+                    if ((arr[index] < arr[index - 1]))
+                    {
+                        op = false;
+
+                    }
+                }
+                Console.WriteLine(op == true ? 1 : 0);
+
+                //Output for each T :
+
+            } //T ends
+        }
+    }
+}
