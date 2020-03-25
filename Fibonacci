@@ -1,0 +1,22 @@
+#generator to output Fibonacci numbers
+def fib():
+    yield 0
+    yield 1
+
+    a = 0
+    b = 1
+    
+    count = 2
+    
+    while count <= 9 :
+        sum = a + b
+        a=b
+        b=sum
+        count += 1
+        yield sum
+    #else:
+    #    raise StopIteration
+    return
+nums = fib()
+for i in nums :
+    print(i)
