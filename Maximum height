@@ -1,0 +1,98 @@
+//Given a struct array of type Height, having two elements feet and inches.Find the maximum height, where height is calculated sum of feet and inches after converting feet into inches.
+
+//Input:
+//First line of input contains number of testcases. For each testcase, first line of input contains N, number of given heights. Next line contains 2*N number of elements (feet and inches for each N).
+
+//Output:
+//Output maximum height from array.
+
+//Constraints:
+//1<=T<=100
+//1<=N<=105
+//0<=Feet, Inches<=105
+
+//Example:
+//Input:
+//2
+//2
+//1 2 2 1
+//4
+//3 5 7 9 5 6 5 5
+//Output:
+//25
+//93
+
+//Explanation:
+//Testcase 1: (1, 2) and(2, 1) are respective given heights.After converting both heigths in to inches, we get 14 and 25 as respective heights. So, 25 is the maximum height.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Practice2
+{
+    public struct height
+    {
+        public int feet;
+        public int inches;
+    }
+    class Program
+    {       
+        static void Main(string[] args)
+        {    
+            string t = Console.ReadLine();
+            int T = int.Parse(t.TrimEnd().TrimStart());
+            if (T < 1 || T > 100) return;
+            //logic for each testcase T
+            for (int i = 0; i < T; i++)
+            {
+                int N = int.Parse(Console.ReadLine().TrimEnd().TrimStart());
+                if (N > Math.Pow(10, 5) || N < 1) return;
+
+                string s = Console.ReadLine().TrimEnd().TrimStart();
+                string[] str = s.Split();
+
+                if (str.Length != (2 * N)) return;
+                for (int k = 0; k < str.Length; k = k + 2)
+                {
+                    if (int.Parse(str[k]) < 0) return;
+                }
+                for (int j = 1; j < str.Length; j = j + 2)
+                {
+                    if (int.Parse(str[j]) > Math.Pow(10, 5)) return;
+                }
+
+                height[] details = new height[N];
+                List<int> myList = new List<int>();
+                int[] vals = Array.ConvertAll(str, x => int.Parse(x));
+
+                foreach (var v in vals)
+                    Console.WriteLine(v);
+                //Logic
+
+                int feetInd = 0;
+                int inchInd = 0;
+                for (int index = 0; feetInd < (N);)
+                {
+                    details[feetInd].feet = vals[index];
+                    index = index + 2;
+                    feetInd++;
+                }
+                for (int index1 = 1; inchInd < (N);)
+                {
+                    details[inchInd].inches = vals[index1];
+                    index1 = index1 + 2;
+                    inchInd++;
+                }
+                foreach (height h in details)
+                {
+                    Console.WriteLine(h.feet + " " + h.inches);
+                    myList.Add(h.feet * 12 + h.inches);
+                }
+                //Output for each T :
+                Console.WriteLine(myList.Max());
+
+            } //T ends
+        }
+    }
+}
