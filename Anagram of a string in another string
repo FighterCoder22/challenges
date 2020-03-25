@@ -1,0 +1,56 @@
+//Create a function that takes two strings and determines if an anagram of the first string is in the second string. Anagrams of "bag" are "bag", "bga", "abg", "agb", "gab", "gba". Since none of those anagrams are in "grab", the answer is false. A "g", "a", and "b" are in the string "grab", but they're split up by the "r".
+
+//Examples
+//AnagramStrStr("car", "race") ➞ true
+
+//AnagramStrStr("nod", "done") ➞ true
+
+//AnagramStrStr("bag", "grab") ➞ false
+
+using System;
+
+namespace Practice2
+{
+    public class tasks
+    {
+        public bool mysteryFunc(string s1,string s2)
+        {
+            string bigger = s1.Length > s2.Length ? s1 : s2;
+            string smaller = bigger.Equals(s1) ? s2 : s1;
+            //For equal length strings, the loop to check for anagrams should run atleast once
+            //i.e, loopCount - 1 = 2-1 = 1
+            int loopCount = s1.Length == s2.Length ? 2 : bigger.Length - smaller.Length + 1;
+            int i = 0;
+            string tempBig = string.Empty;
+            bool result = false;
+            while(i<loopCount-1)
+            {
+                tempBig = bigger.Substring(i, smaller.Length);
+                foreach(char v in smaller.ToCharArray())
+                {
+                    if (tempBig.Contains(v.ToString()))
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                        break;
+                    }
+                }
+                i++;
+            }
+            return result;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            tasks myTasks = new tasks();
+            Console.WriteLine(myTasks.mysteryFunc("care","racer"));  //true    
+            Console.WriteLine(myTasks.mysteryFunc("care","racker")); //false
+            Console.WriteLine(myTasks.mysteryFunc("nod","don")); //true 
+        }
+    }
+}
