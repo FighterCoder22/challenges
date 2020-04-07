@@ -1,0 +1,84 @@
+//Mario wants to meet Pauline.Mario is standing at source point(x1 , y1) and Pauline is standing at destination point(x2 , y2 ) .Determine if it is possible to reach the destination point(x2, y2) from source point(x1 , y1) .
+//Note: Mario has only two valid moves :
+//(x1, y1) to(x1 + y1 , y1 )
+//(x1, y1) to(x1 , y1 + x1)
+
+//Input:
+//First line of input consists of an integer T representing number of test cases.For each test case first line contains four space seperated intergers denoting coordiates of source and destination point.
+//Output:
+//For each test case print True if Mario can reach Pauline else print False.
+//Your Task:
+//Since it is a functional problem , you just have to complete the function isPossible() which accepts four integer values denoting coordinates of source and destination point and returns a boolean value.
+//Constraints:
+//1 <= T <= 100
+//1 <= x1 , y1 , x2 , y2 <= 20
+//Example:
+//Input:
+//2
+//3 2 5 7
+//1 2 3 4
+//Output:
+//True
+//False
+ 
+using System;
+using System.Linq;
+
+namespace StartCSharp
+    {
+    class Program
+    {
+        class myTasks
+        {
+            public bool IsPossible(int sx, int sy, int dx, int dy)
+            {
+                bool val = false;
+                bool xRchd = false;
+                bool yRchd = false;
+                //Calculate x2 , if x not reached
+                if (sx!=dx)
+                {
+                    sx = sx + sy;
+                    if (sx > dx) val = false;
+                    if (sx == dx)
+                        xRchd = true;
+                }
+                
+                //Calculate y2
+                if(sy != dy && sx==dx)
+                {
+                    sy = sx + sy;
+                    if (sy > dy) { val = false; return val; }
+                    if (sy == dy) yRchd = true;
+                }
+                if (sx == dx) xRchd = true;
+                if (sy == dy) yRchd = true;
+                if (xRchd && yRchd) val = true;
+                if(!val) 
+                    val = IsPossible(sx, sy, dx, dy);                
+                return val;
+            }
+        }
+
+        public static void Main(string[] args)
+        {
+            myTasks tasks = new myTasks();
+            int T = int.Parse(Console.ReadLine().TrimEnd().TrimStart());
+            if (T < 1 || T > 100) return;
+            for(int i = 0; i < T; i++)
+            {
+                string[] s = Console.ReadLine().TrimEnd().TrimStart().Split(' ');
+                int[] n = Array.ConvertAll(s, x => int.Parse(x));
+                if (n.Any(x => x > 20 || x < 1)) return;
+                int sx = n[0];
+                int sy = n[1];
+                int dx = n[2];
+                int dy = n[3];
+                //skipped constraints on x1, y1, x2,y2
+                bool res = tasks.IsPossible(sx, sy, dx, dy);
+                //Output for each T
+                Console.WriteLine(res);
+            }
+        }
+    }
+}
